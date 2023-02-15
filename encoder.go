@@ -462,10 +462,10 @@ func (e *Encoder) Encode(text string) ([]int, error) {
 	}
 
 	for _, match := range matches {
-		runes := []rune(match)
+		runes := []byte(match)
 
-		token := strings.Join(lo.Map(runes, func(item rune, _ int) string {
-			return e.byteEncoder[item]
+		token := strings.Join(lo.Map(runes, func(item byte, _ int) string {
+			return e.byteEncoder[rune(item)]
 		}), "")
 
 		bpe := e.cachedBpe(token)
