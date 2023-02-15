@@ -1,4 +1,4 @@
-module github.com/folospace/gpt-3-encoder
+module github.com/folospace/go-gpt-3-encoder
 
 go 1.18
 
