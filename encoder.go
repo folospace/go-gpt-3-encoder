@@ -456,22 +456,15 @@ func (e *Encoder) splitToken(token string) ([]string, error) {
 func (e *Encoder) Encode(text string) ([]int, error) {
 	bpeTokens := []int{}
 
-	matches, err := e.splitToken(text)
-	if err != nil {
-		return nil, err
-	}
+	runes := []byte(text)
 
-	for _, match := range matches {
-		runes := []byte(match)
+	token := strings.Join(lo.Map(runes, func(item byte, _ int) string {
+		return e.byteEncoder[rune(item)]
+	}), "")
 
-		token := strings.Join(lo.Map(runes, func(item byte, _ int) string {
-			return e.byteEncoder[rune(item)]
-		}), "")
-
-		bpe := e.cachedBpe(token)
-		for _, t := range strings.Split(bpe, " ") {
-			bpeTokens = append(bpeTokens, e.encoder[t])
-		}
+	bpe := e.cachedBpe(token)
+	for _, t := range strings.Split(bpe, " ") {
+		bpeTokens = append(bpeTokens, e.(r[t])
 	}
 
 	return bpeTokens, nil
